@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "485357899537",
+    "firebase_url": "https://project-3a086.firebaseio.com",
+    "project_id": "project-3a086",
+    "storage_bucket": "project-3a086.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485357899537:android:f96ca730bbc39c722046b0",
+        "android_client_info": {
+          "package_name": "com.example.homeassistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485357899537-9n1h993l2u0o7s7l1mbb0fn7c45i5nqj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.homeassistant",
+            "certificate_hash": "ec8d269bcdb887253e235bffa584ebf00a551027"
+          }
+        },
+        {
+          "client_id": "485357899537-253nsqc9vv7p8helu3un3qu40phaqnlc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCudHrfvQN4XeaI6uDPRqDVQtbeKa7SZhU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485357899537-253nsqc9vv7p8helu3un3qu40phaqnlc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
