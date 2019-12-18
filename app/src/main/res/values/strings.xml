@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">HomeAssistant</string>
+    <string name="app_name">Home Assistant</string>
     <string name="button_signup"><![CDATA[Save & SignUp]]></string>
 </resources>

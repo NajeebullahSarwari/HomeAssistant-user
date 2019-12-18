@@ -2,6 +2,8 @@ package com.example.homeassistant;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -99,8 +101,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        String email = mEditTextEmail.getText().toString().trim();
-        String password = mEditTextPassword.getText().toString().trim();
+        final String email = mEditTextEmail.getText().toString().trim();
+        final String password = mEditTextPassword.getText().toString().trim();
         String fullName = mEditTextFullName.getText().toString().trim();
         String phone = mEditTextPhoneNo.getText().toString().trim();
         String location = mEditTextLocation.getText().toString().trim();
@@ -121,7 +123,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
-                            Toast.makeText(SignUp.this, "Succefully Registered and details saved", Toast.LENGTH_SHORT).show();
+                            mAuth.createUserWithEmailAndPassword(email,password);
+                            Toast.makeText(SignUp.this, "Succefully Registered and details are saved", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignUp.this,Login.class));
+                            finish();
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
