@@ -1,6 +1,7 @@
 package com.example.homeassistant;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -23,7 +24,7 @@ import java.util.regex.Pattern;
 
 import static java.util.Objects.requireNonNull;
 
-public class SignUp extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
 
  private EditText mEditTextFullName,mEditTextEmail,mEditTextPhoneNo,mEditTextPassword,mEditTextLocation,mEditTextProviderType;
  private Button mButtonSignup,mButtonFetchLocation;
@@ -35,8 +36,15 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        //to set the title for form
-        requireNonNull(getSupportActionBar()).setTitle("Sign Up");
+        ///Actionbar and its title
+        ActionBar actionBar=getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setTitle("Sign UP");
+        }
+        //enable back button
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(true);
+
 
         mEditTextFullName = findViewById(R.id.edit_text_fullname);
         mEditTextEmail = findViewById(R.id.edit_text_email);
@@ -124,15 +132,15 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                         @Override
                         public void onSuccess(DocumentReference documentReference) {
                             mAuth.createUserWithEmailAndPassword(email,password);
-                            Toast.makeText(SignUp.this, "Succefully Registered and details are saved", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignUp.this,Login.class));
+                            Toast.makeText(SignUpActivity.this, "Succefully Registered and details are saved", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                             finish();
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(SignUp.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
 
                 }
             });
