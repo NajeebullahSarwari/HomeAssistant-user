@@ -1,6 +1,5 @@
 package com.example.homeassistant;
 
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,14 +10,14 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Objects;
+
+import java.util.regex.Pattern;
 
 import static java.util.Objects.requireNonNull;
 
@@ -27,6 +26,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
  private EditText mEditTextFullName,mEditTextEmail,mEditTextPhoneNo,mEditTextPassword,mEditTextLocation,mEditTextProviderType;
  private Button mButtonSignup,mButtonFetchLocation;
     private FirebaseFirestore db ;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -46,6 +46,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         mButtonFetchLocation = findViewById(R.id.button_fetchLocation);
         findViewById(R.id.button_signup).setOnClickListener(this);
         db = FirebaseFirestore.getInstance();
+        //Get hold of an instance of FirebaseAuth
+        mAuth = FirebaseAuth.getInstance();
     }
 
 //Method for Fields Validations
@@ -53,22 +55,23 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
 
 
-        if (name.isEmpty()) {
-            mEditTextFullName.setError("Name required");
+        if (name.isEmpty() ||!(Pattern.matches("[A-Za-z\\s]+",name))) {
+            mEditTextFullName.setError("You must enter name to register! Name can only contain letters and space");
             mEditTextFullName.requestFocus();
             return true;
         }
-        if (email.isEmpty()) {
-            mEditTextEmail.setError("Email required");
+        if (email.isEmpty() || !(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
+            mEditTextEmail.setError("Enter a valid email address");
             mEditTextEmail.requestFocus();
             return true;
+
         }
-        if (password.isEmpty() || password.length()<8) {
-            mEditTextPassword.setError("minimum 8 character Password required ");
+        if (password.isEmpty() || !(Pattern.matches("[^\\s]{6,}",password))) {
+            mEditTextPassword.setError("Password must be at least 6 characters long! and can't contain spaces");
             mEditTextPassword.requestFocus();
             return true;
         }
-        if (phone.isEmpty() || phone.length()!=10 ) {
+        if (phone.isEmpty() || !(Pattern.matches("[0-9]{10}",phone)) ) {
             mEditTextPhoneNo.setError("Invalid!Please Enter 10 digits Phone Number");
             mEditTextPhoneNo.requestFocus();
             return true;
@@ -132,5 +135,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         }
     }
+
+
+
+
+
 }
 

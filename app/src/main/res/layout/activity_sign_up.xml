@@ -90,6 +90,7 @@
             android:hint="Phone No"
             android:ems="10"
             android:inputType="phone"
+
             android:textSize="20sp"
             />
     </com.google.android.material.textfield.TextInputLayout>
