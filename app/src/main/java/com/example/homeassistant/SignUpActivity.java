@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,25 +12,34 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.OnCompleteListener;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.auth.SignInMethodQueryResult;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import com.google.firebase.firestore.FirebaseFirestore;
 
 
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
-import static java.util.Objects.requireNonNull;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity  {
 
- private EditText mEditTextFullName,mEditTextEmail,mEditTextPhoneNo,mEditTextPassword,mEditTextLocation,mEditTextProviderType;
- private Button mButtonSignup,mButtonFetchLocation;
+    private EditText mEditTextUserName,mEditTextEmail,mEditTextPassword;
+    private Button mButtonSignup;
+
+
     private FirebaseFirestore db ;
     private FirebaseAuth mAuth;
+    //Progressbar to display while registering and Saving User details
+    private ProgressDialog loadingBar;
 
 
     @Override
@@ -38,117 +48,147 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_sign_up);
         ///Actionbar and its title
         ActionBar actionBar=getSupportActionBar();
-        if (actionBar != null) {
+        if (actionBar != null) {      //if statement because it may produce NullPointerException
             actionBar.setTitle("Sign UP");
+            //enable back button
+            actionBar.setDisplayHomeAsUpEnabled(true);
+            actionBar.setDisplayShowHomeEnabled(true);
         }
-        //enable back button
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowHomeEnabled(true);
 
-
-        mEditTextFullName = findViewById(R.id.edit_text_fullname);
-        mEditTextEmail = findViewById(R.id.edit_text_email);
-        mEditTextPassword = findViewById(R.id.edit_text_password);
-        mEditTextPhoneNo = findViewById(R.id.edit_text_phone);
-        mEditTextProviderType = findViewById(R.id.edit_text_provider_type);
-        mEditTextLocation = findViewById(R.id.edit_text_location);
+        mEditTextUserName=findViewById(R.id.edit_text_username);
+        mEditTextEmail = findViewById(R.id.edit_text_email1);
+        mEditTextPassword = findViewById(R.id.edit_text_password1);
         mButtonSignup = findViewById(R.id.button_signup);
-        mButtonFetchLocation = findViewById(R.id.button_fetchLocation);
-        findViewById(R.id.button_signup).setOnClickListener(this);
+
         db = FirebaseFirestore.getInstance();
         //Get hold of an instance of FirebaseAuth
         mAuth = FirebaseAuth.getInstance();
+
+        loadingBar=new ProgressDialog(this);
+        loadingBar.setTitle("Create Account");
+        loadingBar.setMessage("Please Wait,while we are checking the credentials.");
+        loadingBar.setCanceledOnTouchOutside(false);
+
+        mButtonSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createAccount();
+            }
+        });
+
     }
-
-//Method for Fields Validations
-    private boolean validateInputs(String name, String email, String password, String phone,String providerType, String location) {
-
-
-
-        if (name.isEmpty() ||!(Pattern.matches("[A-Za-z\\s]+",name))) {
-            mEditTextFullName.setError("You must enter name to register! Name can only contain letters and space");
-            mEditTextFullName.requestFocus();
-            return true;
-        }
-        if (email.isEmpty() || !(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
-            mEditTextEmail.setError("Enter a valid email address");
-            mEditTextEmail.requestFocus();
-            return true;
-
-        }
-        if (password.isEmpty() || !(Pattern.matches("[^\\s]{6,}",password))) {
-            mEditTextPassword.setError("Password must be at least 6 characters long! and can't contain spaces");
-            mEditTextPassword.requestFocus();
-            return true;
-        }
-        if (phone.isEmpty() || !(Pattern.matches("[0-9]{10}",phone)) ) {
-            mEditTextPhoneNo.setError("Invalid!Please Enter 10 digits Phone Number");
-            mEditTextPhoneNo.requestFocus();
-            return true;
-        }
-        if (providerType.isEmpty()) {
-            mEditTextProviderType.setError("Provider Type required");
-            mEditTextProviderType.requestFocus();
-            return true;
-        }
-        if (location.isEmpty()) {
-            mEditTextLocation.setError("This field is required");
-            mEditTextLocation.requestFocus();
-            return true;
-        }
-
-
-
-        return false;
-    }
-
-
-
-
 
 
     @Override
-    public void onClick(View view) {
-        final String email = mEditTextEmail.getText().toString().trim();
-        final String password = mEditTextPassword.getText().toString().trim();
-        String fullName = mEditTextFullName.getText().toString().trim();
-        String phone = mEditTextPhoneNo.getText().toString().trim();
-        String location = mEditTextLocation.getText().toString().trim();
-        String providerType = mEditTextProviderType.getText().toString().trim();
+    public boolean onSupportNavigateUp() {
+        onBackPressed();  //go previous activity
+        return super.onSupportNavigateUp();
+    }
 
-        if (!validateInputs(fullName, email, password, phone, providerType, location)) {
 
-            CollectionReference dbRef = db.collection("Providers");
-            SignupModelClass information = new SignupModelClass(
-                    fullName,
-                    email,
-                    providerType,
-                    location,
-                    phone
-            );
 
-            dbRef.add(information)
-                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                        @Override
-                        public void onSuccess(DocumentReference documentReference) {
-                            mAuth.createUserWithEmailAndPassword(email,password);
-                            Toast.makeText(SignUpActivity.this, "Succefully Registered and details are saved", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
-                            finish();
+    private void createAccount() {
+        String email = mEditTextEmail.getText().toString().trim();
+        String password = mEditTextPassword.getText().toString().trim();
+        String userName = mEditTextUserName.getText().toString().trim();
 
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(SignUpActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+        if (userName.isEmpty() ||!(Pattern.matches("[A-Za-z\\s]+",userName))) {
+            mEditTextUserName.setError("You must enter name to register! Name can only contain letters and space");
+            mEditTextUserName.requestFocus();
 
-                }
-            });
+        }
+        else if (email.isEmpty() || !(android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches())) {
+            mEditTextEmail.setError("Enter a valid email address");
+            mEditTextEmail.requestFocus();
+
+
+        }
+       else if (password.isEmpty() || !(Pattern.matches("[^\\s]{6,}",password))) {
+            mEditTextPassword.setError("Password must be at least 6 characters long! and can't contain spaces");
+            mEditTextPassword.requestFocus();
+
+        }
+       else {
+            //if inputs are valid, Show Progress Dialog and start registering user
+            loadingBar.show();
+            validateEmail(userName,email,password);
+
+
+
+
 
 
         }
     }
 
+    private void validateEmail(final String userName, final String email, final String password) {
+
+        final DatabaseReference RootRef;
+        RootRef= FirebaseDatabase.getInstance().getReference("Users");
+        final String id=RootRef.push().getKey();
+        RootRef.addListenerForSingleValueEvent(new ValueEventListener() {
+          @Override
+          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
+              //check email already exist or not.
+              mAuth.fetchSignInMethodsForEmail(email)
+                      .addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
+                          @Override
+                          public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+
+                              boolean isNewUser = task.getResult().getSignInMethods().isEmpty();
+
+                              if (isNewUser) {
+
+                  HashMap<String,Object> userData=new HashMap<>();
+                  userData.put("Email",email);
+                  userData.put("Password",password);
+                  userData.put("Name",userName);
+
+                  RootRef.child(id).setValue(userData)
+                          .addOnCompleteListener(new OnCompleteListener<Void>() {
+                              @Override
+                              public void onComplete(@NonNull Task<Void> task) {
+
+                                  if(task.isSuccessful())
+                                  {
+                                      mAuth.createUserWithEmailAndPassword(email, password);
+                                      Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created", Toast.LENGTH_SHORT).show();
+                                      loadingBar.dismiss();
+                                      startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                                      finish();
+                                  }
+                                  else
+                                  {
+                                      loadingBar.dismiss();
+                                      Toast.makeText(SignUpActivity.this, "Network Error: Please try again after some time...", Toast.LENGTH_SHORT).show();
+                                  }
+
+                              }
+                          });
+
+
+
+             }
+             else
+              {
+
+                  loadingBar.dismiss();
+                  Toast.makeText(SignUpActivity.this, "Email Address "+email+" already exists\nPlease try again using another Email or Login ", Toast.LENGTH_SHORT).show();
+
+                  startActivity(new Intent(getApplicationContext(),MainActivity.class));
+              }   }
+                      });
+
+          }
+
+          @Override
+          public void onCancelled(@NonNull DatabaseError databaseError) {
+
+          }
+      });
+    }
 
 
 
