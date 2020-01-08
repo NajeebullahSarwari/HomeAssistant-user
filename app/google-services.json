@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "121423244863",
+    "firebase_url": "https://project-d96fc.firebaseio.com",
+    "project_id": "project-d96fc",
+    "storage_bucket": "project-d96fc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121423244863:android:9f9e5d587e98c70075d28a",
+        "android_client_info": {
+          "package_name": "com.example.homeassistant"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121423244863-isnmsha8bcmdl8vd1iid90k4k0alngni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABFiYuAktvdDsLan2lYFB9HhjzQkVOtXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121423244863-isnmsha8bcmdl8vd1iid90k4k0alngni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121423244863:android:3d7a2aae16d1a00775d28a",
+        "android_client_info": {
+          "package_name": "com.example.homeassistantadmin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121423244863-0ajgalukvk91johov7e82snf648ra6d6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.homeassistantadmin",
+            "certificate_hash": "ec8d269bcdb887253e235bffa584ebf00a551027"
+          }
+        },
+        {
+          "client_id": "121423244863-isnmsha8bcmdl8vd1iid90k4k0alngni.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABFiYuAktvdDsLan2lYFB9HhjzQkVOtXs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121423244863-isnmsha8bcmdl8vd1iid90k4k0alngni.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

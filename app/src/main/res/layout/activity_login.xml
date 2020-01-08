@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="30dp"
     tools:context=".LoginActivity">
-    
+
     <ImageView
         android:id="@+id/login_logo"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:padding="30dp"
         android:layout_centerHorizontal="true"
+        android:padding="30dp"
 
-        android:src="@drawable/icon_login"/>
+        android:src="@drawable/icon_login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/text_input_layout_email"/>
 
 
 
@@ -23,6 +27,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:focusable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_logo"
+        app:layout_constraintBottom_toTopOf="@+id/text_input_layout_password"
         android:focusableInTouchMode="true"
         android:layout_below="@+id/login_logo"
         android:id="@+id/text_input_layout_email"
@@ -52,6 +60,12 @@
         android:layout_below="@+id/text_input_layout_email"
         android:id="@+id/text_input_layout_password"
 
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_email"
+        app:layout_constraintBottom_toTopOf="@+id/button_login"
+
+
 
         >
 
@@ -67,15 +81,9 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <LinearLayout
-        android:id="@+id/linear_layout1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/text_input_layout_password">
 
-        <com.rey.material.widget.CheckBox
+
+       <!-- <com.rey.material.widget.CheckBox
             android:id="@+id/remember_me_chkb"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -86,19 +94,7 @@
             android:textStyle="bold"
 
 
-            />
-        <TextView
-            android:id="@+id/forgot_password_link"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Forgot Password?"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginLeft="30dp"/>
-
-
-
-    </LinearLayout>
+            />-->
 
 
 
@@ -112,38 +108,41 @@
         android:text="Login"
         android:textSize="22dp"
         android:textColor="#FFFFFF"
-        android:layout_below="@+id/linear_layout1"
         android:textAllCaps="false"
         android:layout_marginTop="40dp"
         android:background="@drawable/button_rounded"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_input_layout_password"
+
         />
 
     <TextView
-    android:id="@+id/admin_panel_link"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="I'm an Admin?"
-    android:layout_alignParentEnd="true"
-    android:layout_below="@+id/button_login"
-    android:textSize="16sp"
-    android:textStyle="bold"
-    android:textColor="@color/colorPrimaryDark"
-    android:layout_marginLeft="30dp"/>
-
-    <TextView
-        android:id="@+id/not_admin_panel_link"
+        android:id="@+id/no_account_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="I'm not an Admin?"
-        android:layout_alignParentStart="true"
-        android:visibility="invisible"
-        android:layout_below="@+id/button_login"
+        android:layout_marginTop="24dp"
+        android:text="No account yet? Create one"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:textColor="@color/colorPrimaryDark"
-       />
+        app:layout_constraintBottom_toTopOf="@+id/forgot_password_link"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button_login" />
 
 
+    <TextView
+        android:id="@+id/forgot_password_link"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="Forgot Password?"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/no_account_link"
+        />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
