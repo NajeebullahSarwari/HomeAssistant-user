@@ -24,7 +24,7 @@
             android:id="@+id/edit_text_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="User Name"
+            android:hint="Full Name"
             android:ems="10"
             android:inputType="text"
             android:textSize="20sp"

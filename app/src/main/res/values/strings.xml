@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Home Assistant</string>
-    <string name="button_signup"><![CDATA[Save & SignUp]]></string>
+    <string name="drawer_open">Drawer Open</string>
+    <string name="drawer_close">Drawer Close</string>
 </resources>

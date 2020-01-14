@@ -143,7 +143,7 @@ public class LoginActivity extends AppCompatActivity {
                         if(task.isSuccessful())
                         {
                             progressdialog.dismiss();
-                            Toast.makeText(LoginActivity.this, "Email Sent", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Password reset link has been sent to your e-mail address!", Toast.LENGTH_SHORT).show();
                         }
                         else
                         {
@@ -197,7 +197,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     Log.d("HomeAssistant", "signInWithEmail:success");
                                                     loadingBar.dismiss();
                                                     FirebaseUser user = mAuth.getCurrentUser();
-                                                    startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
+                                                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
                                                     finish();
 
                                                 }
