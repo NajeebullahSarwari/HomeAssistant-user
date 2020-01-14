@@ -107,19 +107,11 @@ public class MainActivity extends AppCompatActivity {
                         //get Data
                         String name = "" + ds.child("Name").getValue();
                         String email = "" + ds.child("Email").getValue();
-                        // String image=""+ds.child("Image").getValue();
+                        
                         //set Data
                         NavProfileName.setText(name);
 
-                   /* try {
-                        //if image is received then set
-                        Picasso.get().load(image).into(mCircleImageView);
 
-                    }catch (Exception e)
-                    {
-                        //if there is any exception while getting image then set default
-                        Picasso.get().load(R.drawable.profile).into(mCircleImageView);
-                    }*/
 
 
                     }
@@ -133,9 +125,8 @@ public class MainActivity extends AppCompatActivity {
             });
         }
         else{
-            //user not signed in, go to main Activity
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
-            finish();
+            //user not signed in, go to Login Activity
+            goToLoginActivity();
         }
     }
 
@@ -192,8 +183,8 @@ public class MainActivity extends AppCompatActivity {
         int id=item.getItemId();
         if(id==R.id.action_logout){
             mAuth.signOut();
-            startActivity(new Intent(MainActivity.this,LoginActivity.class));
-            finish();
+            goToLoginActivity();
+
 
         }
         //to make hamburger worked
@@ -203,5 +194,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void goToLoginActivity() {
+        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+        finish();
     }
 }
