@@ -176,6 +176,7 @@ public class LoginActivity extends AppCompatActivity {
             mEditTextPassword.setError("Password must be at least 6 characters long! and can't contain spaces");
             mEditTextPassword.requestFocus();
         }
+
         else
         {
             loadingBar.show();
