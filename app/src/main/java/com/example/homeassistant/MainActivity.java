@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,13 @@ public class MainActivity extends AppCompatActivity {
    private ActionBarDrawerToggle mActionBarDrawerToggle;
    private Toolbar mToolbar;
    private TextView NavProfileName;
+   ImageView teacher;
+   ImageView carpenter;
+   ImageView mechanic;
+   ImageView plumber;
+   ImageView electrician;
+   ImageView engineer;
+
 
 
 
@@ -61,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseDatabase=FirebaseDatabase.getInstance();
         mDatabaseReference=mFirebaseDatabase.getReference("Users");
         mCircleImageView=findViewById(R.id.nav_profile_image);
+        teacher=findViewById(R.id.teacher);
+        carpenter = findViewById(R.id.carpenter);
+        mechanic = findViewById(R.id.mechanic);
+        plumber = findViewById(R.id.plumber);
+        electrician = findViewById(R.id.electrician);
+        engineer = findViewById(R.id.engineer);
 
 
         mDrawerLayout=findViewById(R.id.drawable_layout);
@@ -89,7 +103,48 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+teacher.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent i=new Intent(MainActivity.this,ItemsActivity.class);
+        startActivity(i);
+    }
+});
+carpenter.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        Intent i = new Intent(MainActivity.this,CarpenterViewItemActivity.class);
+        startActivity(i);
+    }
+});
+        mechanic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,MechanicViewItemActivity.class);
+                startActivity(i);
+            }
+        });
+        plumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,PlumberViewItemActivity.class);
+                startActivity(i);
+            }
+        });
+        electrician.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,ElectricianViewItemActivity.class);
+                startActivity(i);
+            }
+        });
+        engineer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(MainActivity.this,EngineerViewItemActivity.class);
+                startActivity(i);
+            }
+        });
 
 
 

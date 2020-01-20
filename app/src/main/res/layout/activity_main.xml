@@ -11,8 +11,160 @@
    <RelativeLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent"
+       android:background="#c2cadc"
        >
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Please click on the service you want to receive"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="100dp"
+           android:textStyle="bold"
+           android:textSize="15dp"
+           
+
+           />
+
+       <ImageView
+           android:id="@+id/mechanic"
+           android:layout_width="78dp"
+           android:layout_height="95dp"
+           android:layout_marginTop="165dp"
+           android:layout_marginStart="70dp"
+           android:src="@drawable/mechanic"
+           />
+
+       <TextView
+           android:id="@+id/mechanicText"
+           android:layout_width="72dp"
+           android:layout_height="19dp"
+           android:text="Mechanic"
+           android:textAlignment="center"
+           android:layout_marginStart="70dp"
+           android:textColor="#000000"
+           android:layout_below="@id/mechanic"
+           />
+
+       <ImageView
+           android:id="@+id/electrician"
+           android:layout_width="78dp"
+           android:layout_height="95dp"
+           android:src="@drawable/electrician"
+           android:layout_alignParentEnd="true"
+           android:layout_marginTop="165dp"
+           android:layout_marginEnd="70dp"
+           />
+
+       <TextView
+           android:id="@+id/electricianText"
+           android:layout_width="72dp"
+           android:layout_height="19dp"
+           android:text="Electrician"
+           android:textAlignment="center"
+           android:layout_below="@id/electrician"
+           android:layout_alignParentEnd="true"
+           android:textColor="#000000"
+           android:layout_marginRight="70dp"
+           />
+
+       <ImageView
+           android:id="@+id/plumber"
+           android:layout_width="97dp"
+           android:layout_height="91dp"
+           android:src="@drawable/plumber"
+           android:layout_centerHorizontal="true"
+           android:layout_marginTop="300dp"
+           />
+
+
+       <TextView
+           android:id="@+id/plumberText"
+           android:layout_width="72dp"
+           android:layout_height="19dp"
+           android:text="Plumber"
+           android:textAlignment="center"
+           android:layout_below="@id/plumber"
+           android:textColor="#000000"
+           android:layout_centerHorizontal="true"
+           />
+
+
+       <ImageView
+           android:id="@+id/engineer"
+           android:layout_width="78dp"
+           android:layout_height="95dp"
+           android:src="@drawable/engineer"
+           android:layout_alignParentBottom="true"
+           android:layout_marginBottom="170dp"
+           android:layout_marginStart="50dp"
+           />
+
+       <TextView
+           android:id="@+id/engineerText"
+           android:layout_width="72dp"
+           android:layout_height="19dp"
+           android:text="Engineer"
+           android:textAlignment="center"
+           android:layout_alignParentBottom="true"
+           android:layout_marginBottom="150dp"
+           android:textColor="#000000"
+           android:layout_marginStart="50dp"
+           />
+
+       <ImageView
+           android:id="@+id/carpenter"
+           android:src="@drawable/carpenter"
+           android:layout_width="78dp"
+           android:layout_height="95dp"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentBottom="true"
+           android:layout_marginBottom="170dp"
+           android:layout_marginEnd="50dp" />
+
+       <TextView
+           android:id="@+id/carpenterText"
+           android:layout_width="72dp"
+           android:layout_height="19dp"
+           android:text="Carpenter"
+           android:textAlignment="center"
+           android:layout_alignParentEnd="true"
+           android:layout_alignParentBottom="true"
+           android:layout_marginBottom="150dp"
+           android:textColor="#000000"
+           android:layout_marginRight="50dp"
+           />
+
+       <ImageView
+           android:layout_width="78dp"
+           android:layout_height="95dp"
+           android:src="@drawable/teacher"
+           android:id="@+id/teacher"
+           android:layout_centerHorizontal="true"
+           android:layout_alignParentBottom="true"
+           android:layout_marginBottom="60dp"
+           />
+
+       <TextView
+           android:layout_width="72dp"
+           android:layout_height="19dp"
+           android:text="Teacher"
+           android:layout_alignParentBottom="true"
+           android:layout_centerHorizontal="true"
+           android:textColor="#000000"
+           android:layout_marginBottom="40dp"
+           />
+
+
+
+
+
+
+
+
+
        //to include appbar that we have created
+
        <include
           layout="@layout/app_bar_layout"
            android:id="@+id/main_page_toolbar">
@@ -31,6 +183,11 @@
                android:id="@+id/all_providers_list"
                android:layout_width="match_parent"
                android:layout_height="match_parent" />
+
+
+
+
+           />
        </FrameLayout>
    </RelativeLayout>
     <com.google.android.material.navigation.NavigationView
